@@ -2,12 +2,12 @@ package com.dws.challenge;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
-
 import java.math.BigDecimal;
 
 import com.dws.challenge.domain.Account;
 import com.dws.challenge.exception.DuplicateAccountIdException;
 import com.dws.challenge.service.AccountsService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +21,11 @@ class AccountsServiceTest {
   @Autowired
   private AccountsService accountsService;
 
+  @BeforeEach
+  void prepareAccounts() {
+    // Reset the existing accounts before each test.
+    accountsService.getAccountsRepository().clearAccounts();
+  }
   @Test
   void addAccount() {
     Account account = new Account("Id-123");
